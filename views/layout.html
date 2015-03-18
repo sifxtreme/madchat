@@ -41,20 +41,22 @@
   {{/if}}
 
   {{{body}}}
-<!-- 
-  <script src="http://cdn.madpad.me/js/all-new{{#if is_phone}}-mobile{{/if}}.js"></script>
- -->
 
-  <script src="/js/jquery.min.js"></script>
   <script src="http://cdn.icecomm.io/icecomm.js"></script>
+
+  <script src="/js/all{{#if is_phone}}-mobile{{/if}}.js"></script>
+
+<!-- 
+  <script src="/js/jquery.min.js"></script>
   <script src="/js/{{#if is_phone}}mobile{{else}}desktop{{/if}}.js"></script>
   <script src="/js/index.js"></script>
   <script src="/js/Autolinker.min.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/socket.io.js"></script>
   <script src="/js/variables.js"></script>
   <script src="/js/chat.js"></script>
   <script src="/js/video.js"></script>
 
+ -->
   {{> feedback}}
 
 </body>

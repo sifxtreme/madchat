@@ -27,7 +27,7 @@ $(document).ready(function(){
       $("video").each(function(index){
         $(this).width("25%");
         if(index == 0){
-          mainImage();
+          mainImage($(this));
         }
         else if(index == 1){
           $(this).css("margin-left", "25%");
@@ -38,7 +38,7 @@ $(document).ready(function(){
       $("video").each(function(index){
         $(this).width("25%");
         if(index == 0){
-          mainImage();
+          mainImage($(this));
         }
         else if(index == 1){
           $(this).css("margin-left", "12.5%");
@@ -49,7 +49,7 @@ $(document).ready(function(){
       $("video").each(function(index){
         $(this).width("33.33%");
         if(index == 0){
-          mainImage();
+          mainImage($(this));
         }
       });
     }
