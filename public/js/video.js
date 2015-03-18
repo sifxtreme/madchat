@@ -63,7 +63,7 @@ $(document).ready(function(){
     checkVideos();
   }
 
-  comm.connect(id, {audio: true})
+  comm.connect(id)
   comm.on('local', function(options){
     addVideo(options);
   })
