@@ -1,4 +1,8 @@
 $(document).ready(function(){
+  if(document.location.pathname == "/"){
+    return;
+  }
+
   var comm = new Icecomm('Wj/UFNkQsiuxf0osF3O0xVVwVoSL8whHAvUCBk0pRu1PPPLL7a')
 
   var allVideos = [];
