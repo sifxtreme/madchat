@@ -8,7 +8,7 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name : ['madpad'],
+  app_name : ['madchat'],
   /**
    * Your New Relic license key.
    */

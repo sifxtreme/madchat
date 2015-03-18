@@ -1,22 +1,6 @@
 $(document).ready(function(){
-	if(typeof padTemplate == 'undefined') return;
-	if(!padTemplate) return;
-	if(isHome) return;
 
 	var madpadChat = {
-
-		options: {
-			colorArray: ["#be3333", "#be336e", "#be339f", "#ac33be", "#7e33be", "#4d33be", "#334dbe", "#3385be", "#33acbe", "#33beaf", "#33be85", "#33be47", "#78be33", "#9cbe33", "#bcbe33", "#be9f33", "#be7b33", "#be5733"],
-			animalArray: ["panda", "tiger", "cheetah", "gorilla", "monkey", "robin", "toucan", "elephant", "chimp", "sheep", "rooster", "dog", "cow", "chicken", "rabbit", "pig", "horse", "duck", "parrot", "mouse", "puppy", "cat", "lynx", "hamster", "ferret", "warthog", "wolf", "eagle", "owl", "bear", "hedgehog", "fox", "moose", "squirrel"],
-			descriptions: ["ancient", "friendly", "cuddly", "malicious", "cute", "mean", "smelly", "adorable", "burly", "clumsy", "bitter", "diligent", "electric", "hopeful", "honored", "innocent", "jumbo", "mysterious", "neglected", "plump", "striking", "vivacious", "playful", "feisty", "messy", "loud", "nosy", "sassy", "curious", "tenacious", "fierce", "stubborn", "lazy", "bossy", "candid", "grumpy", "picky", "energetic", "loving", "smart", "noisy", "vicious", "helpful", "jealous"],
-			randomize: function(){
-				return {
-					color: this.colorArray[Math.floor(Math.random() * this.colorArray.length)],
-					animal: this.animalArray[Math.floor(Math.random() * this.animalArray.length)],
-					name: this.descriptions[Math.floor(Math.random() * this.descriptions.length)]
-				}
-			}
-		},
 		
 		scrollDown: function(){
 			$('#messages').stop().animate({
@@ -130,7 +114,7 @@ $(document).ready(function(){
 			
 			var chatUserName = messageObject.user.name;
 			var whichClass = 'user';
-			if((userID && madpadUserData.userID == messageObject.user.profileId) || (typeof messageObject.user.id !== 'undefined' && madpadUserData.unknown.id == messageObject.user.id)){
+			if(messageObject.user.id == userData.id){
 				chatUserName = 'me';
 			}
 			else{
@@ -177,34 +161,6 @@ $(document).ready(function(){
 	 		
 		},
 
-		toggleChat: function(){
-
-			// open chat window
-			var openChat = function(){
-				$('.chatoff-icon').removeClass('chatoff-icon').addClass('chaton-icon');
-				$('.middle').removeClass('no-chat-fix');
-				$('.middle').parent().hide().show(0);
-				$('.right').show();				
-			};
-
-			// close chat window
-			var closeChat = function(){
-				$('.chaton-icon').removeClass('chaton-icon').addClass('chatoff-icon');
-				$('.middle').addClass('no-chat-fix');
-				$('.middle').parent().hide().show(0);
-				$('.right').hide();
-			};
-
-			// set up event listeners
-			$("body").delegate(".chaton-icon", "click", function(){
-				closeChat();
-			});
-			$("body").delegate(".chatoff-icon", "click", function(){
-				openChat();
-			});
-
-		},
-
 		sendMessages: function(){
 			$('.message-input').keypress(function(e){
 				/* allows enter to send messages and shift enter to make new line */
@@ -216,15 +172,13 @@ $(document).ready(function(){
 		},
 
 		run: function(){
-			this.toggleChat();
 			this.sendMessages();
 		},
 
 	};
 	madpadChat.run();
 
-	// random user object in case anything goes wrong
-	var randomUserObject = madpadChat.options.randomize();
+
 
 	// submitting to chat
 	$('.madpadChatForm').submit(function(){
@@ -232,37 +186,17 @@ $(document).ready(function(){
 		if(msg == '') return false;
 
 		var msgObject = {
-			room: padName,
+			room: id,
 			message: msg,
-			user: {
-				name: madpadUserData.username,
-				username: madpadUserData.username,
-				picture: madpadUserData.picture,
-				profileId: userID					
-			}
+			user: userData,
 		};
-
-		// we are not a logged in user
-		if(!userID){
-			// we have an animal cookie set
-			if(madpadUserData && madpadUserData.unknown && madpadUserData.unknown.animal){
-				msgObject.user = {
-					id: madpadUserData.unknown.id,
-					color: madpadUserData.unknown.color,
-					animal: madpadUserData.unknown.animal,
-					name: madpadUserData.unknown.name,
-				};
-			}
-			else{
-				msgObject.user = randomUserObject;					
-			}
-		}
 
 		madpadSocket.emit('chat', msgObject);
 		$('#m').val('');
+		var oldName = msgObject.user.name;
 		msgObject.user.name = "me";
 		madpadChat.appendChat(msgObject);
-		msgObject.user.name = "";
+		msgObject.user.name = oldName;
 		return false;
 	});
 
@@ -281,7 +215,6 @@ $(document).ready(function(){
 			user.picture = user.picture.replace('&amp;', '&');
 			img.src = user.picture;
 			img.className = 'avatar-user';
-			if(user.username == usersRoom) img.className += ' avatar-owner';
 			if(user.color) img.style.backgroundColor = user.color;
 			li.appendChild(img);
 			$('.avatar-list ul').append(li);
@@ -311,41 +244,28 @@ $(document).ready(function(){
 			for(var i=0; i < peopleNumber; i++){
 				var singlePerson = this.formattedData[i];
 				
-				// we are a real person
-				if(singlePerson.user.username){
-					this.createPersonNode(singlePerson.user);
+				var animal, color, name;
+				if(singlePerson.user && typeof singlePerson.user.name !== 'undefined'){
+					animal = singlePerson.user.animal;
+					color = singlePerson.user.color;
+					name = singlePerson.user.name;
 				}
-				// we are a guest
+
+				var userData = {
+					username: name,
+					picture: '/images/chat/animals/' + animal + '.png',
+					color: color
+				}
+				extraPerson = userData;
+
+				// we only want to allow 3 people in the chat header
+				if(i < 3){
+					this.createPersonNode(userData);
+				}
 				else{
-
-					var animal, color, name;
-					if(singlePerson.user.unknown && typeof singlePerson.user.unknown.name !== 'undefined'){
-						animal = singlePerson.user.unknown.animal;
-						color = singlePerson.user.unknown.color;
-						name = singlePerson.user.unknown.name;
+					if(singlePerson.user.name && typeof singlePerson.user.name !== 'undefined'){
+						extraPeople.push(singlePerson.user.name);
 					}
-					else{
-						animal = madpadChat.options.randomize().animal;	
-						color = madpadChat.options.randomize().color;
-						name = madpadChat.options.randomize().name + '-' + animal;
-					}
-					var userData = {
-						username: name,
-						picture: '/images/chat/animals/' + animal + '.png',
-						color: color
-					}
-					extraPerson = userData;
-
-					// we only want to allow 3 people in the chat header
-					if(i < 3){
-						this.createPersonNode(userData);
-					}
-					else{
-						if(singlePerson.user.unknown && typeof singlePerson.user.unknown.name !== 'undefined'){
-							extraPeople.push(singlePerson.user.unknown.name);
-						}
-					}
-					
 				}
 
 			}
@@ -365,13 +285,12 @@ $(document).ready(function(){
 		formatData: function(){
 			// format data so that owner and self are first
 			var tmpArray = [];
-			var owner = [];
 			var self = [];
 			
 			var getUniques = function(arr) {
 		    var hash = {}, result = [];
 		    for ( var i = 0, l = arr.length; i < l; ++i ) {
-		    	var uniqueId = arr[i].user.userID || arr[i].user.unknown.id;
+		    	var uniqueId = arr[i].user.id;
 	        if ( !hash.hasOwnProperty(uniqueId) ) { //it works with objects! in FF, at least
             hash[uniqueId] = true;
             result.push(arr[i]);
@@ -384,16 +303,8 @@ $(document).ready(function(){
 
 			for(var i=0; i<peopleCopy.length; i++){
 				var p = peopleCopy[i];
-				// push owner
-				if(p.user.userID && p.user.username == usersRoom){
-					owner.push(p);
-				}
 				// push logged in self
-				else if(p.user.userID && p.user.userID == madpadUserData.userID){
-					self.push(p);
-				}
-				// push guest self
-				else if(p.user.unknown && p.user.unknown.id && p.user.unknown.id == madpadUserData.unknown.id){
+				if(p.user.id && p.user.id == userData.id){
 					self.push(p);
 				}
 				else{
@@ -404,15 +315,11 @@ $(document).ready(function(){
 			// filter out duplicates
 			tmpArray = getUniques(tmpArray);
 
-			// we want self to be first if owner isn't there
+			// we want self to be first
 			if(self[0]){
 				tmpArray.unshift(self[0]);
 			}
-			// we want owner to be first
-			if(owner[0]){
-				tmpArray.unshift(owner[0]);	
-			}
-			
+
 			this.formattedData = tmpArray;
 
 		},

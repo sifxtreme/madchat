@@ -2,7 +2,7 @@
 	
 	<div class="m-tabs">
 		<div class="tab m-pad active">
-			<p>Pad</p>
+			<p>Video</p>
 		</div>
 		<div class="tab m-chat">
 			<p>Chat</p>
@@ -18,11 +18,8 @@
 	<div class="m-content">
 
 		<div class="m-pad-content">
-			<div id="holder">
-				<div class="dot"></div>
-				<div class="pulse"></div>
-			</div>
-			<textarea id="editor-code" class="pad-area" placeholder="Enter some text here"></textarea>
+			<section id="videos">
+			</section>
 		</div> <!-- pad -->
 
 		<div class="m-chat-content" style="display:none">
@@ -45,41 +42,6 @@
 
 		<div class="m-share-content" style="display:none">
 
-			{{#if usersRoom}}
-				<div class="sharing-settings">
-					<div class="list-settings">
-
-						<div class="settings" id="private-setting">
-							<div class="radio-on radio"></div>
-							<img src="/images/main/private-lock.png" class="setting-icons"/>
-							<div class="setting-text">
-								<p class="large">Personal private pad</p>
-							</div>
-						</div> <!-- Private Setting -->
-
-						<div class="settings" id="shared-setting">
-							<div class="radio-off radio"></div>
-							<img src="/images/main/shared-eye.png" class="setting-icons"/>
-							<div class="setting-text">
-								<p class="large">Viewable with link</p>
-							</div>
-						</div> <!-- Shared Setting -->
-
-						<div class="settings" id="public-setting">
-							<div class="radio-off radio"></div>
-							<img src="/images/main/public-world.png" class="setting-icons"/>
-							<div class="setting-text">
-								<p class="large">Editable with link</p>
-							</div>
-						</div> <!-- Shared Setting -->
-					</div>
-
-					<div class="modal-confirm">
-						<button class="green-btn" id="save-settings">Save Setting</button>
-					</div>
-				</div> <!-- Settings Modal -->
-			{{/if}}
-
 			<div class="social-media">
 				<div class="row">
 					<div class="col">
@@ -91,9 +53,7 @@
 						</a>
 					</div>
 					<div class="col">
-						<a href="https://twitter.com/share?url=http%3A%2F%2Fwww.madpad.me&via=sifxtreme&text=check out my pad on madpad"
-   onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
-   target="_blank" title="Share on Twitter" id="share-twitter">
+						<a href="https://twitter.com/share?url=http%3A%2F%2Fwww.madpad.me&via=sifxtreme&text=check out my pad on madpad" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on Twitter" id="share-twitter">
 							<div class="social-icon">
 								<img src="/images/mobile/twitter.png"/>
 								<p>Twitter</p>
@@ -127,54 +87,17 @@
 
 <!-- mobile html end -->
 {{else}}
-<div class="loading">
-	
-	<div class="spin-wrapper">	
-		<div class="spinner">
-		  <div class="ball ball-1"></div>
-		  <div class="ball ball-2"></div>
-		  <div class="ball ball-3"></div>
-		  <div class="ball ball-4"></div>
-		</div>	
-	</div>	
-</div>
+
 <div class="madpad-container minwidth">
 	
-	<div class="left">
-		<div class="offset"></div>
-		{{> my_pads}}
-	</div>
-
 	<div class="middle">
-
 		<div class="title">
 			<div class="pad-name">
-				<h2>{{id}} <span>{code pad}</span></h2>
+				<h2>{{id}} <span>video chat</span></h2>
 			</div>
-			<div class="title-options">	
-				<div class="icon new-icon tooltip" name="open new pad"></div>
-				{{#if user.username}}<div id="heartFavoriteIcon" class="icon {{#if isFavorite}}favorite-icon{{else}}heart-icon{{/if}} tooltip" name="toggle favorite"></div>{{/if}}
-				<div class="icon chaton-icon tooltip" name="toggle chat"></div>
-				{{#compare usersRoom user.username operator="=="}}<div class="icon trash-icon tooltip" name="delete pad"></div>{{/compare}}
-			</div>
-			<!-- change settings icon -->
-			{{#if usersRoom}}
-				<div class="share-settings-icon {{#compare usersRoom user.username operator='=='}}tooltip{{/compare}}" name="change privacy settings">
-					<div class="icon pad-settings 
-						{{#if pad.readAccess}}{{#if pad.writeAccess}}public-icon{{else}}shared-icon{{/if}}{{else}}private-icon{{/if}}">
-					</div>
-					<span id="settings-text">
-						{{#if pad.readAccess}}{{#if pad.writeAccess}}Editable by Anyone{{else}}Viewable by Anyone{{/if}}{{else}}Completely Private{{/if}}
-					</span>
-				</div>
-			{{/if}}	<!-- end change settings icon -->		
 		</div>
-		
-		<div class="pad-wrapper">
-			{{> code_modes_select}}
-			<div id="editor-code" class="pad-area"></div>
-		</div>
-		
+		<section id="videos">
+		</section>
 	</div> <!-- main text area -->
 
 	<div class="right">

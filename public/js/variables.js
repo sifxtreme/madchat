@@ -1,69 +1,32 @@
 $(document).ready(function(){
-	var mpIsMobile = (document.getElementById("mpIsMobile")) ? document.getElementById("mpIsMobile").value : "";
-
-	var mpUsersRoom = (document.getElementById("mpUsersRoom")) ? document.getElementById("mpUsersRoom").value : "";
-	var mpUserUsername = (document.getElementById("mpUserUsername")) ? document.getElementById("mpUserUsername").value : "";
-	var mpUserID = (document.getElementById("mpUserID")) ? document.getElementById("mpUserID").value : "";
-	var mpUserName = (document.getElementById("mpUserName")) ? document.getElementById("mpUserName").value : "";
-	var mpUserPicture = (document.getElementById("mpUserPicture")) ? document.getElementById("mpUserPicture").value : "";
-	var mpJustLoggedIn = (document.getElementById("mpJustLoggedIn")) ? document.getElementById("mpJustLoggedIn").value : "";
-	var mpAnonID = (document.getElementById("mpAnonID")) ? document.getElementById("mpAnonID").value : "";
-	var mpAnonColor = (document.getElementById("mpAnonColor")) ? document.getElementById("mpAnonColor").value : "";
-	var mpAnonAnimal = (document.getElementById("mpAnonAnimal")) ? document.getElementById("mpAnonAnimal").value : "";
-	var mpAnonName = (document.getElementById("mpAnonName")) ? document.getElementById("mpAnonName").value : "";
-
-	var mpID = (document.getElementById("mpID")) ? document.getElementById("mpID").value : "";
-	var mpIsTextPad = (document.getElementById("mpIsTextPad")) ? document.getElementById("mpIsTextPad").value : "";
-	var mpPadType = (document.getElementById("mpPadType")) ? document.getElementById("mpPadType").value : "";
-	var mpPadRead = (document.getElementById("mpPadRead")) ? document.getElementById("mpPadRead").value : "";
-	var mpPadWrite = (document.getElementById("mpPadWrite")) ? document.getElementById("mpPadWrite").value : "";
+	var isMobile = (document.getElementById("mpIsMobile")) ? document.getElementById("mpIsMobile").value : "";
+	id = (document.getElementById("mpID")) ? document.getElementById("mpID").value : "";
+	id = id.toLowerCase();
 
 	if(document.getElementById("variables")){
 		document.getElementById("variables").remove();
 	}
-	
-	////////////////
-	isMobile = mpIsMobile;
-	////////////////
 
-	// global user data
-	usersRoom = mpUsersRoom.toLowerCase();
-	username = mpUserUsername.toLowerCase();
-	userID = mpUserID;
-	isOwner = (usersRoom == username) ? true : false;
-	justLoggedIn = mpJustLoggedIn;
-
-	madpadUserData = {
-		userID: userID,
-		username: username,
-		name: mpUserName,
-		picture: mpUserPicture,
-		unknown: {
-			id: mpAnonID,
-			color: mpAnonColor,
-			animal: mpAnonAnimal,
-			name: mpAnonName + '-' + mpAnonAnimal
+	chatOptions = {
+		colorArray: ["#be3333", "#be336e", "#be339f", "#ac33be", "#7e33be", "#4d33be", "#334dbe", "#3385be", "#33acbe", "#33beaf", "#33be85", "#33be47", "#78be33", "#9cbe33", "#bcbe33", "#be9f33", "#be7b33", "#be5733"],
+		animalArray: ["panda", "tiger", "cheetah", "gorilla", "monkey", "robin", "toucan", "elephant", "chimp", "sheep", "rooster", "dog", "cow", "chicken", "rabbit", "pig", "horse", "duck", "parrot", "mouse", "puppy", "cat", "lynx", "hamster", "ferret", "warthog", "wolf", "eagle", "owl", "bear", "hedgehog", "fox", "moose", "squirrel"],
+		descriptions: ["ancient", "friendly", "cuddly", "malicious", "cute", "mean", "smelly", "adorable", "burly", "clumsy", "bitter", "diligent", "electric", "hopeful", "honored", "innocent", "jumbo", "mysterious", "neglected", "plump", "striking", "vivacious", "playful", "feisty", "messy", "loud", "nosy", "sassy", "curious", "tenacious", "fierce", "stubborn", "lazy", "bossy", "candid", "grumpy", "picky", "energetic", "loving", "smart", "noisy", "vicious", "helpful", "jealous"],
+		randomize: function(){
+			var description = this.descriptions[Math.floor(Math.random() * this.descriptions.length)];
+			var animal = this.animalArray[Math.floor(Math.random() * this.animalArray.length)];
+			return {
+				id: Math.random(),
+				color: this.colorArray[Math.floor(Math.random() * this.colorArray.length)],
+				animal: animal,
+				name: description+"-"+animal
+			}
 		}
 	}
 
-	// global pad data
-	id = mpID.toLowerCase();
-	padType = (mpIsTextPad == 'true') ? 'text' : 'code';
-	padName = (usersRoom) ? usersRoom + '_' + id : padType + '_' + id;
-	padTemplate = true;
-	padData = {
-		type: mpPadType || 'text',
-	}
-	padPrivacyStatus = 'private';
-	if(mpPadRead) padPrivacyStatus = 'shared';
-	if(mpPadWrite) padPrivacyStatus = 'public';
-
-
-	// sharejs authentication
-	options = {authentication: userID};
+	userData = chatOptions.randomize();
 
 	// global socket object
 	madpadSocket = io();
-	madpadSocket.emit('room', {room: padName, user: madpadUserData});
+	madpadSocket.emit('room', {room: id, user: userData});
 
 });

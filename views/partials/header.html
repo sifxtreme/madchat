@@ -1,22 +1,5 @@
   <div class="header sides minwidth {{#if isHome}}header-fixed{{/if}}">
   <div class="logo-container">
-      <a href="/" title="madpad home"><div class="logo-image"></div></a>
-  </div>
-  <div class="menu-container">
-      {{#if user.username}}
-      <div class="avatar-user">
-          <img src="{{user.picture}}" class="avatar-header" />
-          <div class="avatar-drop" style="display:none;">
-              <div class="arrow-up"></div>
-              <ul class="dropdown">
-                <li><a href="/{{user.username}}/home">{{user.username}}</a></li>
-                <li class="help-click"><a href="/help"><span class="help-icon"></span>Help</a></li>
-                <li><a href="/logout"><span class="logout-icon"></span>Log out</a></li>
-              </ul>
-          </div>
-      </div>
-      {{else}}
-          <a href="#" class="login-button noselect">Log in</a>
-      {{/if}}
+      <a href="/" title="madchat home"><div class="logo-image"></div></a>
   </div>
 </div><!-- Header -->
