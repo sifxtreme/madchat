@@ -1,8 +1,8 @@
-madpad-socket
+madchat
 ===========
 
-Create an editable pad that can be accessed easily from any computer.
+Join an anonymous chatroom
 
-This is similar to [Madpad](https://github.com/sifxtreme/madpad-node) but written with Sockets.
+This uses the chat functionality from [Madpad](https://github.com/sifxtreme/madpad-sockets) but uses video chat from [Icecomm](http://icecomm.io)
 
-Currently in production!
+View it in action at [Madchat](http://video.madpad.me)
