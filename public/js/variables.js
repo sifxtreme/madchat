@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	var isMobile = (document.getElementById("mpIsMobile")) ? document.getElementById("mpIsMobile").value : "";
+	isMobile = (document.getElementById("mpIsMobile")) ? document.getElementById("mpIsMobile").value : "";
 	id = (document.getElementById("mpID")) ? document.getElementById("mpID").value : "";
 	id = id.toLowerCase();
 
