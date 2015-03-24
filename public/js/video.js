@@ -74,16 +74,9 @@ $(document).ready(function(){
   }
 
   $("#videos").on("click", "video", function(){
-    return;
     if($("video").length){
-      var _this = $(this)[0;
+      var _this = $(this)[0];
       var firstVideo = $("video").first()[0];
-
-      console.log(_this);
-      console.log(firstVideo);
-
-      console.log(_this.src)
-      console.log(_this.id)
 
       var tmpSrc = _this.src;
       var tmpID = _this.id;
@@ -91,8 +84,9 @@ $(document).ready(function(){
       _this.src = firstVideo.src;
       _this.id = firstVideo.id;
 
-      console.log(_this);
-      console.log(firstVideo);
+      firstVideo.src = tmpSrc;
+      firstVideo.id = tmpID;
+
     }
     
   })
