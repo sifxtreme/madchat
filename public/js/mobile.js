@@ -11,17 +11,17 @@ $(document).ready(function(){
 	var socialIcons = function(){
 		var fbShare = $("#share-facebook");
 		if(fbShare.length){
-			var fbURL = fbShare.attr("href").replace(/www\.madchatt\.in/g, encodeURIComponent(window.location.host + "/" + window.location.pathname));
+			var fbURL = fbShare.attr("href").replace(/www\.madchat\.me/g, encodeURIComponent(window.location.host + "/" + window.location.pathname));
 			fbShare.attr("href", fbURL);			
 		}
 		var twitterShare = $("#share-twitter");
 		if(twitterShare.length){
-			var twitterURL = twitterShare.attr("href").replace(/www\.madchatt\.in/g, encodeURIComponent(window.location.host + "/" + window.location.pathname));
+			var twitterURL = twitterShare.attr("href").replace(/www\.madchat\.me/g, encodeURIComponent(window.location.host + "/" + window.location.pathname));
 			twitterShare.attr("href", twitterURL);
 		}
 		var emailShare = $("share-email");
 		if(emailShare.length){
-			var emailURL = emailShare.attr("href").replace(/www\.madchatt\.in/g, encodeURIComponent(window.location.host + "/" + window.location.pathname));
+			var emailURL = emailShare.attr("href").replace(/www\.madchat\.me/g, encodeURIComponent(window.location.host + "/" + window.location.pathname));
 			emailShare.attr("href", emailURL);
 		}
 		$("#share-share").click(function(){
