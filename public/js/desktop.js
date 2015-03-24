@@ -124,17 +124,6 @@ $(document).ready(function(){
 	  });
 	}) /* parallax scroll speed */
 
-	$(window).scroll(function(){
-	    var scrollVar = $(window).scrollTop();
-	    var startFade = windowHeight*.75;
-
-	    $('.hero-info').css({'opacity':( startFade-scrollVar )/300});
-	    // $('.hero').css({'opacity': (startFade-scrollVar) /300});
-
-	    fade();
-
-	});/* fades out cover photo text */
-
 
 
 	function centerSectionText(){
@@ -160,48 +149,22 @@ $(document).ready(function(){
 		centerSectionText();	
 	});
 
-	function fade() {
-	
-        $('.fade').each(function() {
-        	
-            /* Check the location of each desired element */
-            var objectBottom = $(this).offset().top + $(this).outerHeight();
-            var windowBottom = $(window).scrollTop() + $(window).innerHeight();
-            var halfDivHeight = 0.5*$(this).height();
-        
-            
-            /* If the object is completely visible in the window, fade it in */
-            if (objectBottom - halfDivHeight < windowBottom) { //object comes into view (scrolling down)
-                if ($(this).css('opacity')==0) {$(this).fadeTo(1000,1);}
-            }
-        });
-    }
-    fade(); //Fade in completely visible elements during page-load
 
-
-    function fadingBackgroundColor(){
-		var colors = ["#cd7155", "#5dbff1",  "#f1cf5d"];
-		var htmlCode = ['<i class="fa fa-code"></i><span>Open Source</span>', '<i class="fa fa-eye"></i><span>Read Only</span>', '<i class="fa fa-shield"></i><span>Completely Private</span>'];
-
-		var currentColor = 0;
-		var currentText = 0;
-		function switchColor() {    
-		    if (currentColor >= colors.length) currentColor = 0;
-		    if (currentText >= htmlCode.length) currentText = 0;
-		    $('.left-section').css('background-color', colors[currentColor++]);
-		    $('.privacy').html(htmlCode[currentText++])
-		    setTimeout(switchColor, 2200);
-		}
-
-		switchColor();
-    }
-    fadingBackgroundColor();
-
-  $(".try-btn").on("click", function(){
-  	var nextPage = $(".url-input").val();
+	var goToRoom = function(){
+		var nextPage = $(".url-input").val();
   	if(nextPage){
   		window.location.href = '/' + nextPage.replace(/ /g, '-');
   	}
+	}
+  	
+
+
+  $("form").on("submit", function(){
+  	goToRoom();
+  	return false;
+  })
+  $(".try-btn").on("click", function(){
+		goToRoom();
   	return false;
   })	
 
