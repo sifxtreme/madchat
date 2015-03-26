@@ -93,13 +93,17 @@
 	<div class="middle">
 		<div class="title">
 			<div class="pad-name">
-				<h2>{{id}} <span>video chat</span></h2>
+				<h2>{{id}} <span>(video chat)</span></h2>
 			</div>
+			{{> new_chat_form}}
 		</div>
 		<section id="videos">
 		</section>
-		<div class="notSupported">
-			Your browser doesn't support WebRTC. Video chat is not enabled
+		<div class="notSupported messaging">
+			Your browser doesn't support WebRTC. Video chat is not enabled.<br/> Please use Chrome / Firefox.
+		</div>
+		<div class="enableWebcam messaging">
+			Please enable webcam. Refresh the window if this doesn't work.
 		</div>
 	</div> <!-- main text area -->
 

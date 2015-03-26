@@ -7,14 +7,9 @@
 		<h2 class="noselect">anonymous video chat</h2>
 		<h2 class="noselect">(only for firefox & chrome)</h2>
 	</div>
+	{{> new_chat_form}}
 </div>
 
-<div class="section white">
-	<div class="info">
-		<h1>find a chat room</h1>
-		<p>open up a chat room by going to a url like <a href="http://www.madchat.me/chat-room-name">www.madchat.me/chat-room-name</a></p>
-	</div>
-</div>
 
 {{> footer}}
 {{else}}
@@ -27,13 +22,7 @@
 			<h2>anonymous video chat</h2>
 			<h2>(only for firefox & chrome)</h2>
 		</div>	
-			<div class="try">
-				<form action="" method="get">
-					<input class="url-input" placeholder="Enter a name of a chatroom..."/>
-					<button type="submit" style="display:none"></button>
-					<a href="#" class="try-btn">GO TO ROOM</a>
-				</form>
-			</div>
+		{{> new_chat_form}}
 	</div>
 
 	<div class="section grey">

@@ -149,23 +149,4 @@ $(document).ready(function(){
 		centerSectionText();	
 	});
 
-
-	var goToRoom = function(){
-		var nextPage = $(".url-input").val();
-  	if(nextPage){
-  		window.location.href = '/' + nextPage.replace(/ /g, '-');
-  	}
-	}
-  	
-
-
-  $("form").on("submit", function(){
-  	goToRoom();
-  	return false;
-  })
-  $(".try-btn").on("click", function(){
-		goToRoom();
-  	return false;
-  })	
-
 });

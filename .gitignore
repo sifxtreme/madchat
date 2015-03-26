@@ -5,4 +5,4 @@ dump.rdb
 oauth.js
 cookie-secret.js
 newrelic_agent.log
-public/config.codekit
+config.codekit

@@ -1,4 +1,22 @@
 $(document).ready(function(){
+
+  // open up a new room
+  var goToRoom = function(){
+    var nextPage = $(".url-input").val();
+    console.log(nextPage);
+    if(nextPage){
+      window.location.href = '/' + nextPage.replace(/ /g, '-');
+    }
+  }
+
+  $(".open-new-room").on("submit", function(){
+    goToRoom();
+    return false;
+  })
+  $(".try-btn").on("click", function(){
+    goToRoom();
+    return false;
+  })
   
   if(!id){
     return;
@@ -6,6 +24,8 @@ $(document).ready(function(){
 
   if(!DetectRTC.isWebRTCSupported){
     $(".notSupported").show();
+    $(".enableWebcam").hide();
+    return;
   }
 
   var comm = new Icecomm('Wj/UFNkQsiuxf0osF3O0xVVwVoSL8whHAvUCBk0pRu1PPPLL7a')
@@ -99,6 +119,7 @@ $(document).ready(function(){
 
   comm.connect(id, {audio: true})
   comm.on('local', function(options){
+    $(".enableWebcam").hide();
     addVideo(options);
   })
   comm.on('connected', function(options){
