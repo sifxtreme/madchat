@@ -113,7 +113,7 @@ $(document).ready(function(){
 
   var addVideo = function(options){
     console.log(options);
-    $("#videos").append(options.video);
+    $("#videos").append(options.getVideo());
     checkVideos();
   }
 
