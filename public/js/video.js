@@ -93,23 +93,43 @@ $(document).ready(function(){
     }
   }
 
-  $("#videos").on("click", "video", function(){
-    if($("video").length){
-      var _this = $(this)[0];
-      var firstVideo = $("video").first()[0];
+  // $("#videos").on("click", "video", function(){
+  //   if($("video").length){
+  //     var clickedVideo = $(this)[0];
+  //     var firstVideo = $("video").first()[0];
 
-      var tmpSrc = _this.src;
-      var tmpID = _this.id;
+  //     if(clickedVideo == firstVideo){
+  //       return;
+  //     }
 
-      _this.src = firstVideo.src;
-      _this.id = firstVideo.id;
+  //     var createMutedAttribute = function(){
+  //       var mutedAttribute = document.createAttribute("muted");
+  //       mutedAttribute.value = "muted";
+  //       return mutedAttribute;
+  //     }
 
-      firstVideo.src = tmpSrc;
-      firstVideo.id = tmpID;
+  //     var tmpSrc = clickedVideo.src;
+  //     var tmpID = clickedVideo.id;
 
-    }
+  //     clickedVideo.src = firstVideo.src;
+  //     clickedVideo.id = firstVideo.id;
+
+  //     firstVideo.src = tmpSrc;
+  //     firstVideo.id = tmpID;
+
+  //     if(clickedVideo.getAttribute("muted")){
+  //       clickedVideo.removeAttribute("muted");
+  //       firstVideo.setAttributeNode(createMutedAttribute());
+        
+  //     }
+  //     else if(firstVideo.getAttribute("muted")){
+  //       firstVideo.removeAttribute("muted");
+  //       clickedVideo.setAttributeNode(createMutedAttribute());
+  //     }
+
+  //   }
     
-  })
+  // })
 
   var addVideo = function(options){
     console.log(options);
