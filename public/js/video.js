@@ -93,43 +93,36 @@ $(document).ready(function(){
     }
   }
 
-  // $("#videos").on("click", "video", function(){
-  //   if($("video").length){
-  //     var clickedVideo = $(this)[0];
-  //     var firstVideo = $("video").first()[0];
+  $("#videos").on("click", "video", function(){
+    if($("video").length){
+      var clickedVideo = $(this)[0];
+      var firstVideo = $("video").first()[0];
 
-  //     if(clickedVideo == firstVideo){
-  //       return;
-  //     }
+      if(clickedVideo == firstVideo){
+        return;
+      }
 
-  //     var createMutedAttribute = function(){
-  //       var mutedAttribute = document.createAttribute("muted");
-  //       mutedAttribute.value = "muted";
-  //       return mutedAttribute;
-  //     }
+      var tmpSrc = clickedVideo.src;
+      var tmpID = clickedVideo.id;
 
-  //     var tmpSrc = clickedVideo.src;
-  //     var tmpID = clickedVideo.id;
+      clickedVideo.src = firstVideo.src;
+      clickedVideo.id = firstVideo.id;
 
-  //     clickedVideo.src = firstVideo.src;
-  //     clickedVideo.id = firstVideo.id;
+      firstVideo.src = tmpSrc;
+      firstVideo.id = tmpID;
 
-  //     firstVideo.src = tmpSrc;
-  //     firstVideo.id = tmpID;
+      if(clickedVideo.muted){
+        clickedVideo.muted = false;
+        firstVideo.muted = true;
+      }
+      else if(firstVideo.muted){
+        clickedVideo.muted = true;
+        firstVideo.muted = false;
+      }
 
-  //     if(clickedVideo.getAttribute("muted")){
-  //       clickedVideo.removeAttribute("muted");
-  //       firstVideo.setAttributeNode(createMutedAttribute());
-        
-  //     }
-  //     else if(firstVideo.getAttribute("muted")){
-  //       firstVideo.removeAttribute("muted");
-  //       clickedVideo.setAttributeNode(createMutedAttribute());
-  //     }
-
-  //   }
+    }
     
-  // })
+  })
 
   var addVideo = function(options){
     console.log(options);
